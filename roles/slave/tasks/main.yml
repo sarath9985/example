@@ -1,0 +1,8 @@
+- name: Create file to initiate replica set
+  template:
+    src: init.j2
+    dest: ./init.j2
+
+- name: Initialize the replica set
+  command: mongo ./init.j2
+

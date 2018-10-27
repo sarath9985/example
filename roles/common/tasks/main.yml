@@ -1,0 +1,49 @@
+
+# Amazon Linux needs xfsprogs installed in order to mount xfs filesystem for Mongo
+
+- name: Configure package management system (yum for MongoDB 3.6)
+  yum_repository:
+    name: mongodb-org-4.0
+    description: MongoDB Repository
+    baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
+    gpgcheck: 1
+    enabled: 1
+    gpgkey:  https://www.mongodb.org/static/pgp/server-4.0.asc
+
+
+- name: RedHat - install mongodb
+  yum: 
+    name: mongodb-org 
+    state: present 
+    update_cache: yes
+
+- name: Update mongod.conf
+  template: 
+    src: mongod.initial.conf.j2 
+    dest: /etc/mongod.conf
+
+- name: Create db directory for MongoDB
+  file: 
+    path={{ mongodb_db_path }}
+    owner=mongod 
+    group=mongod 
+    mode=775
+
+- name: Create log directory for MongoDB
+  file: 
+    path={{ mongodb_log_path }}
+    owner=mongod 
+    group=mongod 
+    mode=775
+
+- name: enabled mongod as a service
+  service: name=mongod enabled=yes
+
+# mongod.conf
+
+
+- name: Ensure mongod restart on system boot
+  service: name=mongod state=started
+
+
+ 

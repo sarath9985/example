@@ -1,0 +1,16 @@
+- hosts: mongodb
+  remote_user: root
+  tasks:
+    - name: create uninstall
+      command: service mongod stop
+   
+    - name: create uninstall
+      service: name=mongod state=started
+    
+    - name: create uninstall
+      file: path=/var/log/mongodb state=absent
+
+    - name: create uninstall
+      file: path=/var/lib/mongodb state=absent
+
+

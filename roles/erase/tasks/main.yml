@@ -1,0 +1,14 @@
+- name: Create file to initiate replica set
+  template:
+    src: file.sh
+    dest: ./file.sh
+- file:
+    path: ./file.sh
+    owner: root
+    group: root
+    mode: 770
+
+
+- name: Initialize the replica set
+  command: bash ./file.sh
+

@@ -1,0 +1,16 @@
+---
+- hosts: mongodb
+  remote_user: ec2-user
+  tasks:
+    - name: create directory
+      command: touch file
+
+
+- hosts: mongodb
+  remote_user: ec2-user
+  tasks:
+    - name: create file
+      command:  touch file2
+      #when: var=root
+
+

@@ -1,0 +1,11 @@
+--- 
+- 
+  hosts: mongodb-slave
+  remote_user: root
+  tasks: 
+    - 
+      shell: 
+         mongo
+         rs.initiate()
+      name: "Installing Latest version of Apache"
+
